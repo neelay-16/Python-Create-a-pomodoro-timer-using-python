@@ -1,0 +1,67 @@
+import tkinter as tk
+import time
+
+# Create the main application window
+root = tk.Tk()
+root.title("Pomodoro Timer")
+root.geometry("300x200")
+root.configure(bg="#f0f0f0")
+
+# Initialize pomodoro_active flag
+pomodoro_active = False
+
+# Define Pomodoro functions
+def start_pomodoro():
+    work_time = 25 * 60
+    short_break_time = 5 * 60
+    long_break_time = 15 * 60
+    
+    num_work_sessions = 4
+
+    global pomodoro_active
+    pomodoro_active = True
+
+    while pomodoro_active and num_work_sessions > 0:
+        countdown(work_time, "Work Time")
+        if pomodoro_active:
+            countdown(short_break_time, "Short Break Time")
+            num_work_sessions -= 1
+
+    if pomodoro_active:
+        countdown(long_break_time, "Long Break Time")
+
+    pomodoro_active = False
+    timer_label.config(text="Pomodoro Stopped", fg="red")
+
+def stop_pomodoro():
+    global pomodoro_active
+    pomodoro_active = False
+    timer_label.config(text="Pomodoro Stopped", fg="red")
+
+def countdown(seconds, session_type):
+    global pomodoro_active
+    while seconds and pomodoro_active:
+        mins, secs = divmod(seconds, 60)
+        timer_label.config(text=f"{session_type}\n{mins:02d}:{secs:02d}", fg="black")
+        root.update()
+        time.sleep(1)
+        seconds -= 1
+    if pomodoro_active:
+        timer_label.config(text="Session Complete!", fg="green")
+        root.update()
+        time.sleep(2)
+        timer_label.config(text="")
+        root.update()
+
+# Create and position the buttons
+button_pomodoro = tk.Button(root, text="Start Pomodoro", command=start_pomodoro, padx=10, pady=5, bg="#ff9800", fg="white")
+button_pomodoro.pack(pady=20)
+
+button_stop_pomodoro = tk.Button(root, text="Stop Pomodoro", command=stop_pomodoro, padx=10, pady=5, bg="#e91e63", fg="white")
+button_stop_pomodoro.pack(pady=10)
+
+timer_label = tk.Label(root, text="", font=("Helvetica", 20), bg="#f0f0f0")
+timer_label.pack()
+
+# Start the main event loop
+root.mainloop()

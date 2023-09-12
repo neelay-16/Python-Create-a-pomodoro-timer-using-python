@@ -46,4 +46,10 @@ This function is used for the actual countdown timer. It updates the timer label
 
 When you run this code, you can click the "Start Pomodoro" button to begin a Pomodoro session, and the timer label will display the countdown. You can also click the "Stop Pomodoro" button to stop the timer. The timer follows the Pomodoro Technique's structure with work sessions, short breaks, and long breaks.
 
+# Acknowledgements
+
+The Pomodoro Technique was developed by Francesco Cirillo, and more information about it can be found on the official Pomodoro Technique website.
+
+Enjoy your productive Pomodoro sessions!
+
 
